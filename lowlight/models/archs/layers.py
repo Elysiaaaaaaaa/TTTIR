@@ -22,7 +22,7 @@ class BandNorm(nn.Module):
         std = x.std(dim=(2, 3), keepdim=True)
         return (x - mean) / (std + self.eps)
 
-class HFSC(nn.Module):
+class PFSC(nn.Module):
     def __init__(self, channels, num_outputs=3, reduction=4):
         super().__init__()
 
@@ -126,7 +126,7 @@ def trunc_normal_(tensor, mean=0., std=1., a=-2., b=2.):
     # type: (Tensor, float, float, float, float) -> Tensor
     return _no_grad_trunc_normal_(tensor, mean, std, a, b)
 
-class TTT(nn.Module):
+class RestorationOrientedTTT(nn.Module):
 
     def __init__(self, dim, num_heads, qkv_bias=True, **kwargs):
 
@@ -234,9 +234,6 @@ class TTT(nn.Module):
 
         return x, w3
 
-
-    
-      
 class BasicConv(nn.Module):
     def __init__(self, in_channel, out_channel, kernel_size, stride, bias=True, norm=False, relu=True, transpose=False):
         super(BasicConv, self).__init__()
@@ -320,7 +317,7 @@ class FeedForward(nn.Module):
         out = self.net(x.permute(0, 3, 1, 2))
         return out.permute(0, 2, 3, 1)
 
-class HSE(nn.Module):
+class STE(nn.Module):
     def __init__(
             self,
             d_model,
@@ -333,7 +330,7 @@ class HSE(nn.Module):
         self.focal_level = focal_level
         self.space_foc = space_Foc
         self.freq_foc = freq_Foc
-        self.TTT = TTT(dim=self.d_model, num_heads=self.d_model // 8)
+        self.RestorationOrientedTTT = RestorationOrientedTTT(dim=self.d_model, num_heads=self.d_model // 8)
         self.blocks = nn.ModuleList([])
         for _ in range(self.focal_level):
             self.blocks.append(
@@ -352,7 +349,7 @@ class HSE(nn.Module):
         current_state = (spatial_states[:, 0] + frequency_states[:, 0]) / 2
         for t in range(1, frequency_states.shape[1]):
             target_state = (frequency_states[:, t] + spatial_states[:, t])/2
-            x_, w3 = self.TTT(
+            x_, w3 = self.RestorationOrientedTTT(
                 current_state,
                 target_state=target_state,
                 w3=w3
@@ -363,7 +360,7 @@ class HSE(nn.Module):
         out = current_state.permute(0, 3, 1, 2)
         return out
 
-class HSEBlock(nn.Module):
+class SES(nn.Module):
     def __init__(
             self,
             hidden_dim: int = 0,
@@ -374,7 +371,7 @@ class HSEBlock(nn.Module):
     ):
         super().__init__()
         self.ln_1 = nn.LayerNorm(hidden_dim)
-        self.state_evolution = HSE(
+        self.state_evolution = STE(
             d_model=hidden_dim, 
             focal_level=focal_level,
             space_Foc=space_Foc,
@@ -398,7 +395,7 @@ class HSEBlock(nn.Module):
                 )
         return x
 
-class HSSC(nn.Module):
+class PSSC(nn.Module):
 
     def __init__(self, 
                  dim,
@@ -452,7 +449,7 @@ class HSSC(nn.Module):
         ctx_all = torch.stack(ctx_all, dim=1)  # dim=0 在第一个维度堆叠
         return ctx_all
 
-class SEBlock(nn.Module):
+class SESBlock(nn.Module):
     def __init__(self, 
                  embed_dim, 
                  smooth=False,
@@ -460,10 +457,10 @@ class SEBlock(nn.Module):
                  drop_path_rate=0.1,
                  focal_level=3
                 ):
-        super(SEBlock, self).__init__()
+        super(SESBlock, self).__init__()
         dpr = [x.item() for x in torch.linspace(0, drop_path_rate, depths)]  # stochastic depth decay rule
         
-        self.space_Foc = HSSC(
+        self.space_Foc = PSSC(
                 dim = embed_dim,
                 proj_drop=0., 
                 focal_level=focal_level, 
@@ -471,10 +468,10 @@ class SEBlock(nn.Module):
                 focal_factor=0, 
                 use_postln=False
                 )
-        self.freq_Foc = HFSC(embed_dim)
+        self.freq_Foc = PFSC(embed_dim)
         self.blocks = nn.ModuleList()
         for i in range(depths):
-            self.blocks.append(HSEBlock(
+            self.blocks.append(SES(
                 hidden_dim=embed_dim,
                 drop_path=dpr[i],
                 focal_level=focal_level,

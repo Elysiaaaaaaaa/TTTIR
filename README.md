@@ -154,20 +154,9 @@ Organize the datasets under a common root directory:
 ```bash
 cd derain
 
-CUDA_VISIBLE_DEVICES=2,3 python -m torch.distributed.launch \
-    --nproc_per_node 2 \
-    --use_env \
-    --master_port 6198 \
-    main.py \
-    --model_name Rain13k \
-    --mode train \
-    --num_epoch 300 \
-    --data_dir /data2/zhengkaihang/ttt/dataset/Rain13k \
-    --learning_rate 1e-3 \
-    --save_freq 30 \
-    --valid_freq 1 \
-    --batch_size 4 \
-    --num_worker 6
+CUDA_VISIBLE_DEVICES=2,3 python -m torch.distributed.launch --nproc_per_node 2 --use_env --master_port 6198 main.py \
+    --model_name Rain13k --mode train --num_epoch 300 --data_dir /data2/zhengkaihang/ttt/dataset/Rain13k \
+    --learning_rate 1e-3 --save_freq 30 --valid_freq 1 --batch_size 4 --num_worker 6
 ```
 
 </details>
@@ -202,11 +191,8 @@ python train.py -opt options/train/LOL-Syn.yml
 ```bash
 cd derain
 
-CUDA_VISIBLE_DEVICES=0 python main.py \
-    --mode test \
-    --data_dir /data2/zhengkaihang/ttt/dataset/Rain13k \
-    --test_model /path/to/model.pkl \
-    --model_name Rain100H
+CUDA_VISIBLE_DEVICES=0 python main.py --mode test --data_dir /data2/zhengkaihang/ttt/dataset/Rain13k \
+    --test_model /path/to/model.pkl --model_name Rain100H
 ```
 
 </details>

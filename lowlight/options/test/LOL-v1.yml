@@ -21,4 +21,4 @@ network_G:
 #### path
 path:
   root: ./
-  pretrain_model_G: 
+  pretrain_model_G: pth/lolv1.pth
