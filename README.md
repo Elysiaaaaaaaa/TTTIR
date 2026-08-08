@@ -8,7 +8,7 @@
 
 ## News
 
-- **2026-08-05:** The initial codebase is released. We are excited to release the first general image reconstruction model based on Test-Time Training (TTT).
+- **2026-08-05:** The initial codebase is released. We are excited to release the first general image reconstruction model based on TTT.
 
 ---
 
