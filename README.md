@@ -8,7 +8,7 @@
 
 ## News
 
-- **2026-08-05:** The initial codebase is released.
+- **2026-08-05:** The initial codebase is released. We are excited to release the first general image reconstruction model based on Test-Time Training (TTT).
 
 ---
 
@@ -27,10 +27,6 @@
 
 ## Dependencies
 
-- Python 3.7.12
-- PyTorch
-- NVIDIA GPU and CUDA
-
 <details>
 <summary><b>Click to expand installation commands</b></summary>
 
@@ -47,7 +43,7 @@ pip install -r requirement.txt
 
 </details>
 
-Choose a PyTorch build compatible with your CUDA version. The experiments in the paper were conducted on NVIDIA RTX 3080 Ti GPUs.
+Our experiments in the paper were conducted on NVIDIA RTX 3080 Ti GPUs.
 
 
 
