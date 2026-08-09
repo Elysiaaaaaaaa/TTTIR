@@ -48,7 +48,7 @@ Our experiments in the paper were conducted on NVIDIA RTX 3080 Ti GPUs.
 
 ## Datasets
 
-The datasets used for training and evaluation are listed below. Download links will be added after the processed datasets are finalized.
+The datasets used for training and evaluation are listed below. The processed datasets can be downloaded from [Baidu Netdisk](https://pan.baidu.com/s/1-hrcZVkH4R0ylRE9KvEUYQ?pwd=7ghe) (extraction code: `7ghe`).
 
 | Task | Training set | Testing set |
 |:--|:--|:--|
