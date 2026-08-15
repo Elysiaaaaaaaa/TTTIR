@@ -10,11 +10,10 @@
 
 - **2026-08-05:** The initial codebase is released. We are excited to release the first general image reconstruction model based on TTT.
 
----
+<img width="911" height="426" alt="image" src="https://github.com/user-attachments/assets/742442e4-e5cc-48aa-82eb-cfad8ce751b5" />
 
 > **Abstract:** Image restoration is inherently challenging due to the diverse and highly input-dependent nature of real-world degradations. While recent architectures such as Transformers and state-space models have advanced the field, they predominantly rely on static, globally shared parameters, which struggle to fully accommodate instance-specific degradation patterns. To address this limitation, we propose **TTTIR**, a framework that reformulates image restoration as an instance-specific state evolution process. Progressive State Sequence Generation (PSSG) constructs complementary spatial-frequency target states that define what to recover, while State Transition Evolution (STE) adapts lightweight transition operators through a restoration-oriented test-time training inner loop that determines how features should evolve. Extensive experiments demonstrate strong performance across low-light enhancement, rain removal, and image dehazing benchmarks with favorable computational scalability.
 
----
 
 ## Contents
 
