@@ -9,7 +9,7 @@
 **We sincerely invite readers to refer to our team’s other work [MambaIR](https://github.com/csguoh/MambaIR).**
 ## News
 
-- **2026-08-05:** The initial codebase is released. We are excited to release the first general image reconstruction model based on TTT.
+- **2026-08-05:** The initial codebase is released. We are excited to release the first general image reconstruction model based on TTT. **Our model achieves SOTA performance with fewer than 1M parameters.**
 - **2026-08-24:** Our paper is still on hold at arXiv. We’ll update the paper link once the arXiv ID is available. 🌹
 <img width="911" height="426" alt="image" src="https://github.com/user-attachments/assets/742442e4-e5cc-48aa-82eb-cfad8ce751b5" />
 
@@ -40,7 +40,7 @@ pip install -r requirement.txt
 
 ## Datasets
 
-The datasets used for training and evaluation are listed below. The datasets can be downloaded from [Baidu Netdisk](https://pan.baidu.com/s/1-hrcZVkH4R0ylRE9KvEUYQ?pwd=7ghe) (extraction code: `7ghe`).
+The datasets used for training and evaluation are listed below. They can be downloaded from [Baidu Netdisk](https://pan.baidu.com/s/1-hrcZVkH4R0ylRE9KvEUYQ?pwd=7ghe) (extraction code: `7ghe`).
 
 | Task | Training set | Testing set |
 |:--|:--|:--|
@@ -223,6 +223,7 @@ Detailed results are reported in the paper. Click each section below to view the
     <td align="center" width="50%"><b>Table 4.</b> RESIDE-6K and Haze4K.</td>
   </tr>
 </table>
+
 #### Low-light enhancement
 
 <p align="center">
