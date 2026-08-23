@@ -2,14 +2,15 @@
 
 **Kaihang Zheng<sup>\*</sup>**, **Jun Li<sup>\*</sup>**, Hang Guo, Hongyu Chi, Zimo Liu, Tao Dai, **Jinpeng Wang<sup>&dagger;</sup>**, and **Yaowei Wang<sup>&dagger;</sup>**
 
-<sup>\*</sup>Equal contribution &nbsp; <sup>&dagger;</sup>Corresponding authors
+[![Paper](https://img.shields.io/badge/Researchgate-Paper-brightgreen)](http://doi.org/10.13140/RG.2.2.32985.48485) [![52CV](https://img.shields.io/badge/52CV-中文解读-pink.svg?style=flat)](https://mp.weixin.qq.com/s/sLUdWHp8cVXh3GyEIGsNaA) 
 
-[![Paper](https://img.shields.io/badge/arXiv-Paper-brightgreen)](#) [![Models](https://img.shields.io/badge/Models-Coming_Soon-blue)](#model-zoo) [![Results](https://img.shields.io/badge/Results-Available-brightgreen)](#results)
+**:star: If **TTTIR** is helpful to your  projects, please help star this repo. Thanks! :hugs:**
 
+**We sincerely invite readers to refer to our team’s other work [MambaIR](https://github.com/csguoh/MambaIR).**
 ## News
 
 - **2026-08-05:** The initial codebase is released. We are excited to release the first general image reconstruction model based on TTT.
-
+- **2026-08-24:** Our paper is still on hold at arXiv. We’ll update the paper link once the arXiv ID is available. 🌹
 <img width="911" height="426" alt="image" src="https://github.com/user-attachments/assets/742442e4-e5cc-48aa-82eb-cfad8ce751b5" />
 
 > **Abstract:** Image restoration is inherently challenging due to the diverse and highly input-dependent nature of real-world degradations. While recent architectures such as Transformers and state-space models have advanced the field, they predominantly rely on static, globally shared parameters, which struggle to fully accommodate instance-specific degradation patterns. To address this limitation, we propose **TTTIR**, a framework that reformulates image restoration as an instance-specific state evolution process. Progressive State Sequence Generation (PSSG) constructs complementary spatial-frequency target states that define what to recover, while State Transition Evolution (STE) adapts lightweight transition operators through a restoration-oriented test-time training inner loop that determines how features should evolve. Extensive experiments demonstrate strong performance across low-light enhancement, rain removal, and image dehazing benchmarks with favorable computational scalability.
@@ -25,10 +26,7 @@
 6. [Results](#results)
 
 ## Dependencies
-
-<details>
-<summary><b>Click to expand installation commands</b></summary>
-
+Our experiments in the paper are conducted on NVIDIA RTX 3080 Ti GPUs.
 ```bash
 git clone https://github.com/Elysiaaaaaaaa/TTTIR.git
 cd TTTIR
@@ -40,15 +38,9 @@ conda activate tttir
 pip install -r requirement.txt
 ```
 
-</details>
-
-Our experiments in the paper were conducted on NVIDIA RTX 3080 Ti GPUs.
-
-
-
 ## Datasets
 
-The datasets used for training and evaluation are listed below. The processed datasets can be downloaded from [Baidu Netdisk](https://pan.baidu.com/s/1-hrcZVkH4R0ylRE9KvEUYQ?pwd=7ghe) (extraction code: `7ghe`).
+The datasets used for training and evaluation are listed below. The datasets can be downloaded from [Baidu Netdisk](https://pan.baidu.com/s/1-hrcZVkH4R0ylRE9KvEUYQ?pwd=7ghe) (extraction code: `7ghe`).
 
 | Task | Training set | Testing set |
 |:--|:--|:--|
@@ -143,26 +135,15 @@ Organize the datasets under a common root directory:
 
 ### Rain streak and raindrop removal
 
-<details>
-<summary><b>Click to expand the training command</b></summary>
-
 ```bash
 cd derain
-
 CUDA_VISIBLE_DEVICES=2,3 python -m torch.distributed.launch --nproc_per_node 2 --use_env --master_port 6198 main.py \
     --model_name Rain13k --mode train --num_epoch 300 --data_dir /data2/zhengkaihang/ttt/dataset/Rain13k \
     --learning_rate 1e-3 --save_freq 30 --valid_freq 1 --batch_size 4 --num_worker 6
 ```
-
-</details>
-
 ### Low-light enhancement
 
 Training settings and dataset paths are defined in YAML files under `lowlight/options/train/`.
-
-<details>
-<summary><b>Click to expand the training commands</b></summary>
-
 ```bash
 cd lowlight
 
@@ -172,16 +153,9 @@ python train.py -opt options/train/LOL-v1.yml
 # LOL-v2-Synthetic
 python train.py -opt options/train/LOL-Syn.yml
 ```
-
-</details>
-
-
 ## Testing
 
 ### Rain streak and raindrop removal
-
-<details>
-<summary><b>Click to expand the testing command</b></summary>
 
 ```bash
 cd derain
@@ -190,15 +164,7 @@ CUDA_VISIBLE_DEVICES=0 python main.py --mode test --data_dir /data2/zhengkaihang
     --test_model /path/to/model.pkl --model_name Rain100H
 ```
 
-</details>
-
-
 ### Low-light enhancement
-
-
-<details>
-<summary><b>Click to expand the testing commands</b></summary>
-
 ```bash
 cd lowlight
 
@@ -211,8 +177,6 @@ python test.py -opt options/test/LOL-v2-Real-Based_v1.yml
 # LOL-v2-Synthetic
 python test.py -opt options/test/LOL-v2-Syn.yml
 ```
-
-</details>
 
 ## Model Zoo
 
@@ -229,24 +193,17 @@ python test.py -opt options/test/LOL-v2-Syn.yml
 
 Detailed results are reported in the paper. Click each section below to view the quantitative and qualitative comparisons.
 
-<details>
-<summary><b>Quantitative comparison</b> (click to expand)</summary>
-
 #### Low-light enhancement
 
 <p align="center">
   <img width="900" src="Figs/Table1.png" alt="Quantitative comparison on LOL-v1, LOL-v2-Real, and LOL-v2-Synthetic">
 </p>
 
-<p align="center"><b>Table 1.</b> Quantitative comparison on LOL-v1, LOL-v2-Real, and LOL-v2-Synthetic.</p>
-
 #### Rain streak removal
 
 <p align="center">
   <img width="900" src="Figs/Table2.png" alt="Quantitative comparison on five synthetic rain-streak removal benchmarks">
 </p>
-
-<p align="center"><b>Table 2.</b> Quantitative comparison on Test100, Rain100H, Rain100L, Test2800, and Test1200.</p>
 
 <table>
   <tr>
@@ -266,36 +223,22 @@ Detailed results are reported in the paper. Click each section below to view the
     <td align="center" width="50%"><b>Table 4.</b> RESIDE-6K and Haze4K.</td>
   </tr>
 </table>
-
-</details>
-
-<details>
-<summary><b>Visual comparison</b> (click to expand)</summary>
-
-### Low-light enhancement
+#### Low-light enhancement
 
 <p align="center">
   <img width="900" src="Figs/Figure3.png" alt="Visual comparison on LOL-v1 and LOL-v2-Synthetic">
 </p>
 
-<p align="center"><b>Figure 3.</b> Visual comparison on LOL-v1 and LOL-v2-Synthetic.</p>
-
-
-### Rain removal
+#### Rain removal
 
 <p align="center">
   <img width="900" src="Figs/Figure4.png" alt="Visual comparison on Rain100L and Rain100H">
 </p>
 
-<p align="center"><b>Figure 4.</b> Visual comparison with Nerd-Rain and CPRAformer on Rain100L and Rain100H.</p>
-
-</details>
-
 ## Citation
 
-If this work is useful for your research, please cite it. The final BibTeX entry will be updated when the paper identifier and venue are available.
-
-```bibtex
+If you find our code useful or use the toolkit in your work, please consider citing:
+```
 @article{zheng2026tttir,
   title   = {TTTIR: Unlocking Instance-Specific State Evolution via Test-Time Training for Image Restoration},
   author  = {Zheng, Kaihang and Li, Jun and Guo, Hang and Chi, Hongyu and Liu, Zimo and Dai, Tao and Wang, Jinpeng and Wang, Yaowei},
@@ -304,7 +247,3 @@ If this work is useful for your research, please cite it. The final BibTeX entry
 }
 ```
 
-
-## License
-
-This project is released under the [Apache License 2.0](LICENSE).
