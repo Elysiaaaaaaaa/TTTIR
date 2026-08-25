@@ -192,7 +192,7 @@ python test.py -opt options/test/LOL-v2-Syn.yml
 
 ## Results
 
-Detailed results are reported in the paper. Click each section below to view the quantitative and qualitative comparisons.
+Click each section below to view the quantitative and qualitative comparisons.
 
 #### Low-light enhancement
 
