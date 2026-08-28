@@ -191,9 +191,6 @@ python test.py -opt options/test/LOL-v2-Syn.yml
 | Image dehazing | Haze4K | Haze4K | Coming soon |
 
 ## Results
-
-Click each section below to view the quantitative and qualitative comparisons.
-
 #### Low-light enhancement
 
 <p align="center">
