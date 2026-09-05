@@ -1,0 +1,20 @@
+# Python bytecode and local interpreter state
+__pycache__/
+*.py[cod]
+*.so
+
+# Operating-system and editor files
+.DS_Store
+.idea/
+.vscode/
+
+# Generated restoration outputs and experiment state
+restoration/results/
+restoration/runs/
+restoration/LSRW-Huawei/
+restoration/experiments/
+restoration/tb_logger/
+
+# Local logs and temporary evaluation artifacts
+*.log
+*.tmp

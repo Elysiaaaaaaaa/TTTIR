@@ -36,7 +36,7 @@ conda create -n tttir python=3.7.12 -y
 conda activate tttir
 
 # The dependency file will be released soon.
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 ## Datasets
@@ -134,49 +134,65 @@ Organize the datasets under a common root directory:
 
 ## Training
 
-### Rain streak and raindrop removal
+All runnable restoration commands use the unified entry point in `restoration/`.
+For a detached job, enter `screen -S tttir`, run `conda activate tttir` inside
+the session, start one of the commands below, then press `Ctrl-A D` to detach.
+
+### Rain-streak removal
 
 ```bash
-cd derain
-CUDA_VISIBLE_DEVICES=2,3 python -m torch.distributed.launch --nproc_per_node 2 --use_env --master_port 6198 main.py \
-    --model_name Rain13k --mode train --num_epoch 300 --data_dir /data2/zhengkaihang/ttt/dataset/Rain13k \
+cd restoration
+CUDA_VISIBLE_DEVICES=0 python main.py --task derain --mode train \
+    --model_name rain13k --data_dir /path/to/datasets/Rain13k --num_epoch 300 \
     --learning_rate 1e-3 --save_freq 30 --valid_freq 1 --batch_size 4 --num_worker 6
 ```
+
+The current single-process command is the supported documented path. Select an
+idle GPU by changing `CUDA_VISIBLE_DEVICES`.
+
 ### Low-light enhancement
 
-Training settings and dataset paths are defined in YAML files under `lowlight/options/train/`.
+Training settings and dataset paths are defined in YAML files under `restoration/options/train/`.
+Before running, set `dataroot_LQ` and `dataroot_GT` in the selected YAML.
+Choose the device through the process environment, for example
+`CUDA_VISIBLE_DEVICES=0`.
+
 ```bash
-cd lowlight
+cd restoration
 
 # LOL-v1
-python train.py -opt options/train/LOL-v1.yml
+CUDA_VISIBLE_DEVICES=0 python main.py --task enhance --mode train --opt options/train/lol_v1.yml
 
 # LOL-v2-Synthetic
-python train.py -opt options/train/LOL-Syn.yml
+CUDA_VISIBLE_DEVICES=0 python main.py --task enhance --mode train --opt options/train/lol_v2_synthetic.yml
 ```
+
+`--opt` must be supplied explicitly for low-light enhancement.
+
 ## Testing
 
-### Rain streak and raindrop removal
+### Rain-streak removal
 
 ```bash
-cd derain
-
-CUDA_VISIBLE_DEVICES=0 python main.py --mode test --data_dir /data2/zhengkaihang/ttt/dataset/Rain13k \
-    --test_model /path/to/model.pkl --model_name Rain100H
+cd restoration
+CUDA_VISIBLE_DEVICES=0 python main.py --task derain --mode test \
+    --data_dir /path/to/datasets/Rain13k --test_model /path/to/model.pkl \
+    --model_name rain100l
 ```
 
 ### Low-light enhancement
+
 ```bash
-cd lowlight
+cd restoration
 
 # LOL-v1
-python test.py -opt options/test/LOL-v1.yml
+CUDA_VISIBLE_DEVICES=0 python main.py --task enhance --mode test --opt options/test/lol_v1.yml
 
 # LOL-v2-Real evaluated with the LOL-v1 model
-python test.py -opt options/test/LOL-v2-Real-Based_v1.yml
+CUDA_VISIBLE_DEVICES=0 python main.py --task enhance --mode test --opt options/test/lol_v2_real_lol_v1.yml
 
 # LOL-v2-Synthetic
-python test.py -opt options/test/LOL-v2-Syn.yml
+CUDA_VISIBLE_DEVICES=0 python main.py --task enhance --mode test --opt options/test/lol_v2_synthetic.yml
 ```
 
 ## Model Zoo
@@ -245,4 +261,3 @@ If you find our code useful or use the toolkit in your work, please consider cit
   year    = {2026}
 }
 ```
-
