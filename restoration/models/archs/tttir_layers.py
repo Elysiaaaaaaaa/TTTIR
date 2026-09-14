@@ -193,7 +193,7 @@ class RestorationOrientedTTT(nn.Module):
             x: [B, H, W, C]
             target_state: [B, H, W, C]
         """
-        # target_state = target_state.detach()
+
         if len(x.shape) == 4:
             b, h, w, c = target_state.shape
             n = h * w
