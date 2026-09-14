@@ -142,9 +142,7 @@ the session, start one of the commands below, then press `Ctrl-A D` to detach.
 
 ```bash
 cd restoration
-CUDA_VISIBLE_DEVICES=0 python main.py --task derain --mode train \
-    --model_name rain13k --data_dir /path/to/datasets/Rain13k --num_epoch 300 \
-    --learning_rate 1e-3 --save_freq 30 --valid_freq 1 --batch_size 4 --num_worker 6
+CUDA_VISIBLE_DEVICES=0,1,2,3 python -m torch.distributed.launch --nproc_per_node 4 --use_env --master_port 7298  main.py --model_name rain13k --task derain --mode train --num_epoch 300 --data_dir /path/to/datasets/Rain13k --learning_rate 1e-3  --save_freq 30 --valid_freq 1 --batch_size 4 --num_worker 4
 ```
 
 The current single-process command is the supported documented path. Select an
