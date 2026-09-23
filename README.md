@@ -2,6 +2,7 @@
 
 **Kaihang Zheng<sup>\*</sup>**, **Jun Li<sup>\*</sup>**, Hang Guo, Hongyu Chi, Zimo Liu, Tao Dai, **Jinpeng Wang<sup>&dagger;</sup>**, and **Yaowei Wang<sup>&dagger;</sup>**
 
+[![arXiv](https://img.shields.io/badge/arXiv-2609.26151-b31b1b.svg?style=flat)](https://arxiv.org/abs/2609.26151)
 [![Paper](https://img.shields.io/badge/Researchgate-Paper-brightgreen)](http://doi.org/10.13140/RG.2.2.32985.48485) [![52CV](https://img.shields.io/badge/52CV-中文解读-pink.svg?style=flat)](https://mp.weixin.qq.com/s/sLUdWHp8cVXh3GyEIGsNaA) 
 
 **:star: If **TTTIR** is helpful to your  projects, please help star this repo. Thanks! :hugs:**
@@ -10,7 +11,6 @@
 ## News
 
 - **2026-08-05:** The initial codebase is released. We are excited to release the first general image reconstruction model based on TTT. **Our model achieves SOTA performance with fewer than 1M parameters.**
-- **2026-08-24:** Our paper is still on hold at arXiv. We’ll update the paper link once the arXiv ID is available. 🌹
 - **2026-08-26:** For easier reproducibility, we are working to unify the codebase across all tasks. 
 <img width="911" height="426" alt="image" src="https://github.com/user-attachments/assets/742442e4-e5cc-48aa-82eb-cfad8ce751b5" />
 
